@@ -7,14 +7,15 @@ namespace bs::math
 		T Y;
 
 		Vec2()
+			: X(0)
+			, Y(0)
 		{
-			X = Y = 0;
 		}
 
 		Vec2(const T& x, const T& y)
+			: X(x)
+			, Y(y)
 		{
-			X = x;
-			Y = y;
 		}
 	};
 
