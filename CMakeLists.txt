@@ -45,3 +45,9 @@ add_custom_command(TARGET Bloodstone POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
                    "${SDL2_DLL}"
                    ${CMAKE_BINARY_DIR})
+
+#Copy assets
+add_custom_command(TARGET Bloodstone POST_BUILD 
+                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+                   "${GAME_DIR}/Assets"
+                   "${CMAKE_BINARY_DIR}/Assets")

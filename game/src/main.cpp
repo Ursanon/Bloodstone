@@ -1,14 +1,12 @@
-#include <cstdio>
+#include "Engine.hpp"
 
-#include "SDL.h"
+using std::make_unique;
 
-extern "C"
 int main(int argc, char* argv[])
 {
-    printf("hello!");
-    
-    SDL_Init(SDL_INIT_VIDEO);
+    auto engine = make_unique<bs::Engine>();
 
-    SDL_Quit();
+    engine->Run();
+
     return 0;
 }
