@@ -13,8 +13,9 @@ bs::RenderWindow::~RenderWindow()
 
 void bs::RenderWindow::Clear(const Color& color)
 {
-	SDL_SetRenderDrawColor(renderer_, color.R, color.G, color.B, color.A);
+	auto color8 = color.AsColor8();
 
+	SDL_SetRenderDrawColor(renderer_, color8.R, color8.G, color8.B, color8.A);
 	SDL_RenderClear(renderer_);
 }
 

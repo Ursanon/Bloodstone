@@ -3,6 +3,7 @@
 
 #include "Window/Window.hpp"
 #include "Rendering/Color.hpp"
+#include "Rendering/Color8.hpp"
 #include "Rendering/IDrawable.hpp"
 #include "Rendering/IRenderTarget.hpp"
 

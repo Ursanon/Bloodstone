@@ -12,3 +12,29 @@ bs::Window::~Window()
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
+
+bool bs::Window::PoolEvents(Event& event)
+{
+    SDL_Event nativeEvent;
+    const bool nextEventAvailable = SDL_PollEvent(&nativeEvent);
+
+    switch (nativeEvent.type)
+    {
+    case SDL_QUIT:
+        event.Type = Event::EventType::WindowClose;
+        break;
+    case SDL_KEYUP:
+        {
+            event.Type = Event::EventType::KeyReleased;
+            switch (nativeEvent.key.keysym.sym)
+            {
+            case SDLK_ESCAPE:
+                event.Key.Code = Keyboard::Key::Escape;
+                break;
+            }
+            break;
+        }
+    }
+
+	return nextEventAvailable;
+}

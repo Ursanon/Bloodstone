@@ -30,20 +30,17 @@ void bs::Engine::LoadConfig()
 
 void bs::Engine::ProcessEvents()
 {
-    // TODO: move to window
-    SDL_Event event;
+    Event event;
 
-    while (SDL_PollEvent(&event))
+    while (window_->PoolEvents(event))
     {
-        switch (event.type)
+        switch (event.Type)
         {
-        case SDL_QUIT:
+        case Event::EventType::WindowClose:
             quitRequested_ = true;
             break;
-        case SDL_KEYUP:
-            quitRequested_ = event.key.keysym.sym == SDLK_ESCAPE;
-            break;
-        default:
+        case Event::EventType::KeyReleased:
+            quitRequested_ = event.Key.Code == Keyboard::Key::Escape;
             break;
         }
     }
@@ -55,7 +52,7 @@ void bs::Engine::Update(float deltaTime)
 
 void bs::Engine::Render()
 {
-    auto clearColor = Color(30.f / 255.f, 30.f / 255.f, 160.f / 255.f);
+    auto clearColor = Color(0.15f, 0.15f, 0.8f);
     window_->Clear(clearColor);
 
     window_->Display();
