@@ -3,19 +3,21 @@
 
 #include <string>
 
+#include "SDL.h"
+#include "Core/Math/Vec2.hpp"
+#include "Window/WindowMode.hpp"
+
 namespace bs
 {
 	class Window
 	{
 	public:
-		Window(std::string name, WindowMode mode = WindowMode::Windowed, );
+		Window(const std::string& name, const math::Vec2i& size, const WindowMode mode = WindowMode::Windowed);
 
 		virtual ~Window();
-	};
 
-	enum class WindowMode
-	{
-		Windowed = 0
+	protected:
+		SDL_Window* window;
 	};
 }
 
