@@ -9,15 +9,15 @@
 
 namespace bs
 {
-	class ResourceManager
+	class ResourceManager sealed
 	{
 	public:
-		ResourceManager(SDL_Renderer* renderer);
+		explicit ResourceManager(IRenderTarget& context);
 
 		void PreloadAssets();
 
 	private:
-		SDL_Renderer* renderer_;
+		IRenderTarget& const context_;
 
 		// TODO: #3
 		std::map<int, std::string> assetsToLoad_;

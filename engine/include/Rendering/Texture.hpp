@@ -11,12 +11,12 @@ namespace bs
 	class Texture
 	{
 	public:
-		static std::unique_ptr<bs::Texture> LoadFromFile(const std::string& path, SDL_Renderer* context);
+		static std::unique_ptr<bs::Texture> LoadFromFile(const std::string& path, IRenderTarget& context);
 
 		~Texture();
 
 	protected:
-		Texture(SDL_Texture* texture);
+		explicit Texture(SDL_Texture* texture);
 
 	private:
 		SDL_Texture* const texture_;

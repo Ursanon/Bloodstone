@@ -27,7 +27,8 @@ void bs::Engine::LoadConfig()
 
     window_ = std::make_unique<RenderWindow>(title, resolution, mode);
 
-    resources_ = std::make_unique<ResourceManager>(window_->GetRenderer());
+    auto target = static_cast<IRenderTarget*>(window_.get());
+    resources_ = std::make_unique<ResourceManager>(*target);
     resources_->PreloadAssets();
 }
 
