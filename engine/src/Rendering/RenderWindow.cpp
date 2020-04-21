@@ -27,3 +27,8 @@ void bs::RenderWindow::Display()
 {
 	SDL_RenderPresent(renderer_);
 }
+
+SDL_Renderer* bs::RenderWindow::GetRenderer()
+{
+	return renderer_;
+}

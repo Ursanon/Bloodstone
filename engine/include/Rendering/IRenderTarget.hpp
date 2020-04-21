@@ -5,6 +5,8 @@ namespace bs
 {
 	class IRenderTarget
 	{
+	public:
+		virtual SDL_Renderer* GetRenderer() = 0;
 	};
 }
 

@@ -26,6 +26,10 @@ void bs::Engine::LoadConfig()
     const std::string title = "Bloodstone Engine";
 
     window_ = std::make_unique<RenderWindow>(title, resolution, mode);
+
+    auto target = static_cast<IRenderTarget*>(window_.get());
+    resources_ = std::make_unique<ResourceManager>(*target);
+    resources_->PreloadAssets();
 }
 
 void bs::Engine::ProcessEvents()
