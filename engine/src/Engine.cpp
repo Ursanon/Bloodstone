@@ -17,10 +17,7 @@ void bs::Engine::Run()
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    auto lastRenderTime = std::chrono::steady_clock::time_point::min();
     auto lastUpdateTime = std::chrono::steady_clock::time_point::min();
-
-    int lastSecondTime = 0;
 
     while (!quitRequested_)
 	{
@@ -53,7 +50,7 @@ void bs::Engine::Run()
 
         auto preRenderTime = std::chrono::high_resolution_clock::now();
         Render();
-        lastRenderTime = std::chrono::high_resolution_clock::now();
+        auto lastRenderTime = std::chrono::high_resolution_clock::now();
 
         auto renderTime = std::chrono::duration<double, std::milli>(lastRenderTime - preRenderTime).count();
         printf("Render: %.4f [ms]\n", renderTime);

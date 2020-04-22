@@ -8,7 +8,7 @@ namespace bs
 	class GameEntity : IEntityComponent
 	{
 	public:
-		GameEntity(int id);
+		explicit GameEntity(int id);
 
 		int GetId() const;
 
