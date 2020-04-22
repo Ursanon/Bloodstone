@@ -13,7 +13,6 @@ std::unique_ptr<bs::Texture> bs::Texture::LoadFromFile(const std::string& path, 
 
 bs::Texture::~Texture()
 {
-	printf("Destroing texture!");
 	SDL_DestroyTexture(texture_);
 }
 
