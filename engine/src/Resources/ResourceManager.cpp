@@ -21,3 +21,14 @@ void bs::ResourceManager::PreloadAssets()
 		printf("..... DONE\n");
 	}
 }
+
+std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
+{
+	auto fakeScene = std::make_unique<Scene>();
+
+	auto entity = GameEntity(0);
+
+	fakeScene->AddEntity(entity);
+
+	return fakeScene;
+}

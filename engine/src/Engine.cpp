@@ -30,6 +30,8 @@ void bs::Engine::LoadConfig()
     auto target = static_cast<IRenderTarget*>(window_.get());
     resources_ = std::make_unique<ResourceManager>(*target);
     resources_->PreloadAssets();
+
+    scene_ = std::move(resources_->LoadScene());
 }
 
 void bs::Engine::ProcessEvents()

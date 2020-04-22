@@ -1,6 +1,8 @@
 #ifndef IRENDER_TARGET_HPP
 #define IRENDER_TARGET_HPP
 
+#include "SDL.h"
+
 namespace bs
 {
 	class IRenderTarget
