@@ -6,6 +6,7 @@
 #include <string>
 #include "SDL.h"
 #include "Rendering/Texture.hpp"
+#include "Resources/Scene.hpp"
 
 namespace bs
 {
@@ -15,6 +16,8 @@ namespace bs
 		explicit ResourceManager(IRenderTarget& context);
 
 		void PreloadAssets();
+
+		std::unique_ptr<Scene> LoadScene();
 
 	private:
 		IRenderTarget& const context_;

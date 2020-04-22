@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "Rendering/RenderWindow.hpp"
+#include "Resources/Scene.hpp"
 #include "Resources/ResourceManager.hpp"
 
 namespace bs
@@ -26,6 +27,7 @@ namespace bs
 	private:
 		bool quitRequested_;
 
+		std::unique_ptr<Scene> scene_;
 		std::unique_ptr<RenderWindow> window_;
 		std::unique_ptr<ResourceManager> resources_;
 	};
