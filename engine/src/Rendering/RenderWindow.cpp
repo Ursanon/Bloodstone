@@ -3,7 +3,7 @@
 bs::RenderWindow::RenderWindow(const std::string& name, const math::Vec2i& size, const WindowMode mode)
 	: Window(name, size, mode)
 {
-	renderer_ = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer_ = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 }
 
 bs::RenderWindow::~RenderWindow()
