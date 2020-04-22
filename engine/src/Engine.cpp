@@ -20,17 +20,18 @@ void bs::Engine::Run()
     auto lastRenderTime = std::chrono::steady_clock::time_point::min();
     auto lastUpdateTime = std::chrono::steady_clock::time_point::min();
 
+    int lastSecondTime = 0;
+
     while (!quitRequested_)
 	{
         ProcessEvents();
 
         auto end = std::chrono::high_resolution_clock::now();
-        auto msTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
         auto ms = std::chrono::duration<double, std::milli>(end - start);
 
         start = std::chrono::high_resolution_clock::now();
 
-        printf("%.4f [ms]\n", ms.count());
+        printf("Frametime: %.4f [ms] || ", ms.count());
 
         accelerator += ms.count();
         while (accelerator > timePerFrame)
@@ -44,13 +45,24 @@ void bs::Engine::Run()
             lastUpdateTime = std::chrono::high_resolution_clock::now();
         }
 
-        lastRenderTime = std::chrono::high_resolution_clock::now();
-        Render();
+        if (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastUpdateTime).count() > timePerFrame)
+        {
+            lastUpdateTime = std::chrono::high_resolution_clock::now();
+            lastUpdateTime -= std::chrono::steady_clock::duration((long long)(timePerFrame * 1000000));
+        }
 
-        while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastRenderTime).count() < timePerFrame
+        auto preRenderTime = std::chrono::high_resolution_clock::now();
+        Render();
+        lastRenderTime = std::chrono::high_resolution_clock::now();
+
+        auto renderTime = std::chrono::duration<double, std::milli>(lastRenderTime - preRenderTime).count();
+        printf("Render: %.4f [ms]\n", renderTime);
+
+        while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastRenderTime).count() < timePerFrame - renderTime
             && std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastUpdateTime).count() < timePerFrame)
         {
-            std::this_thread::yield();
+            //std::this_thread::yield();
+            std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
 	}
 }
