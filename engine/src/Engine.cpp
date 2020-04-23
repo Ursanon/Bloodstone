@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <thread>
+#include "Core/Time/Stopwatch.hpp"
 
 bs::Engine::Engine()
 	: quitRequested_(false)
@@ -11,26 +12,25 @@ bs::Engine::Engine()
 void bs::Engine::Run()
 {
     LoadConfig();
-
-    double accelerator = 0;
     const double timePerFrame = (1.0 / 60.0) * 1000.0;
 
-    auto start = std::chrono::high_resolution_clock::now();
-
-    auto lastUpdateTime = std::chrono::steady_clock::time_point::min();
+    double accelerator = 0;
+    TimePoint lastUpdateTime;
+    TimePoint lastRenderTime;
+    Stopwatch frameStopwatch;
+    Stopwatch renderStopwatch;
 
     while (!quitRequested_)
 	{
         ProcessEvents();
 
-        auto end = std::chrono::high_resolution_clock::now();
-        auto ms = std::chrono::duration<double, std::milli>(end - start);
+        frameStopwatch.Stop();
+        const double lastFrameTime = frameStopwatch.GetElapsedTime<std::milli>();
+        frameStopwatch.Restart();
 
-        start = std::chrono::high_resolution_clock::now();
+        printf("Frametime: %.4f [ms] || ", lastFrameTime);
 
-        printf("Frametime: %.4f [ms] || ", ms.count());
-
-        accelerator += ms.count();
+        accelerator += lastFrameTime;
         while (accelerator > timePerFrame)
         {
             accelerator -= timePerFrame;
@@ -39,26 +39,21 @@ void bs::Engine::Run()
 
             Update(timePerFrame);
 
-            lastUpdateTime = std::chrono::high_resolution_clock::now();
+            lastUpdateTime = Time::Now();
         }
 
-        if (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastUpdateTime).count() > timePerFrame)
-        {
-            lastUpdateTime = std::chrono::high_resolution_clock::now();
-            lastUpdateTime -= std::chrono::steady_clock::duration((long long)(timePerFrame * 1000000));
-        }
+        renderStopwatch.Restart();
 
-        auto preRenderTime = std::chrono::high_resolution_clock::now();
         Render();
-        auto lastRenderTime = std::chrono::high_resolution_clock::now();
+        lastRenderTime = Time::Now();
+        renderStopwatch.Stop();
 
-        auto renderTime = std::chrono::duration<double, std::milli>(lastRenderTime - preRenderTime).count();
+        const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
         printf("Render: %.4f [ms]\n", renderTime);
 
-        while (std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastRenderTime).count() < timePerFrame - renderTime
-            && std::chrono::duration<double, std::milli>(std::chrono::high_resolution_clock::now() - lastUpdateTime).count() < timePerFrame)
+        while (Time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame - renderTime
+               && Time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame)
         {
-            //std::this_thread::yield();
             std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
 	}
