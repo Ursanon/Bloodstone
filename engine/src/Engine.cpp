@@ -15,10 +15,8 @@ void bs::Engine::Run()
     const double timePerFrame = (1.0 / 60.0) * 1000.0;
 
     double accelerator = 0;
-
-    auto lastUpdateTime = TimePoint::min();
-    auto lastRenderTime = TimePoint::min();
-
+    TimePoint lastUpdateTime;
+    TimePoint lastRenderTime;
     Stopwatch frameStopwatch;
     Stopwatch renderStopwatch;
 
