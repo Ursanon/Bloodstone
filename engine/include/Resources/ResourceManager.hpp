@@ -20,7 +20,7 @@ namespace bs
 		std::unique_ptr<Scene> LoadScene();
 
 	private:
-		IRenderTarget& const context_;
+		IRenderTarget& context_;
 
 		// TODO: #3
 		std::map<int, std::string> assetsToLoad_;

@@ -18,6 +18,9 @@ namespace bs
 
 		template <typename TPeriod>
 		static double ElapsedFrom(const TimePoint& point);
+
+	private:
+		Time() { };
 	};
 
 	template<typename TPeriod>

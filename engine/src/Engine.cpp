@@ -27,7 +27,7 @@ void bs::Engine::Run()
         const float lastFrameTime = frameStopwatch.GetElapsedTime<std::milli>();
         frameStopwatch.Restart();
 
-        printf("Frametime: %.4f [ms] || ", lastFrameTime);
+        printf("Frametime: %.4f [ms] \n", lastFrameTime);
 
         accelerator += lastFrameTime;
         while (accelerator > timePerFrame_)
