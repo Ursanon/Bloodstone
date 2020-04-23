@@ -7,26 +7,22 @@ typedef std::chrono::high_resolution_clock::time_point TimePoint;
 typedef std::chrono::high_resolution_clock::duration TimeDuration;
 
 template<typename TPeriod>
-using ElapsedDouble = std::chrono::duration<double, TPeriod>;
+using ElapsedFloat = std::chrono::duration<float, TPeriod>;
 
 namespace bs
 {
-	class Time sealed
+	namespace time
 	{
-	public:
-		static TimePoint Now();
+		inline TimePoint Now()
+		{
+			return std::chrono::high_resolution_clock::now();
+		}
 
 		template <typename TPeriod>
-		static double ElapsedFrom(const TimePoint& point);
-
-	private:
-		Time() { };
-	};
-
-	template<typename TPeriod>
-	inline double Time::ElapsedFrom(const TimePoint& point)
-	{
-		return ElapsedDouble<TPeriod>(Now() - point).count();
+		inline float ElapsedFrom(const TimePoint& point)
+		{
+			return ElapsedFloat<TPeriod>(Now() - point).count();
+		}
 	}
 }
 

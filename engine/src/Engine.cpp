@@ -38,19 +38,19 @@ void bs::Engine::Run()
 
             Update(timePerFrame_);
 
-            lastUpdateTime = Time::Now();
+            lastUpdateTime = time::Now();
         }
 
         renderStopwatch.Restart();
 
         Render();
-        lastRenderTime = Time::Now();
+        lastRenderTime = time::Now();
         renderStopwatch.Stop();
 
         const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
 
-        while (Time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame_ - renderTime
-               && Time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame_)
+        while (time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame_ - renderTime
+               && time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame_)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
