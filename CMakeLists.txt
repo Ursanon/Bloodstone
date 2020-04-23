@@ -24,15 +24,11 @@ include_directories("${ENGINE_SRC_DIR}")
 include_directories("${GAME_INCLUDE_DIR}")
 include_directories("${GAME_SRC_DIR}")
 
-file(GLOB ALL_SRC
-    "${ENGINE_INCLUDE_DIR}/*/*.hpp"
+file(GLOB_RECURSE ALL_SRC
     "${ENGINE_INCLUDE_DIR}/*.hpp"
-    "${ENGINE_SRC_DIR}/*/*.cpp"
     "${ENGINE_SRC_DIR}/*.cpp"
 
-    "${GAME_INCLUDE_DIR}/*/*.hpp"
     "${GAME_INCLUDE_DIR}/*.hpp"
-    "${GAME_SRC_DIR}/*/*.cpp"
     "${GAME_SRC_DIR}/*.cpp"
     )
 
