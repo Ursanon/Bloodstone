@@ -12,7 +12,6 @@ bs::Engine::Engine()
 void bs::Engine::Run()
 {
     LoadConfig();
-    const float timePerFrame = (1.0 / 60.0) * 1000.0;
 
     float accelerator = 0;
     TimePoint lastUpdateTime;
@@ -31,13 +30,13 @@ void bs::Engine::Run()
         printf("Frametime: %.4f [ms] || ", lastFrameTime);
 
         accelerator += lastFrameTime;
-        while (accelerator > timePerFrame)
+        while (accelerator > timePerFrame_)
         {
-            accelerator -= timePerFrame;
+            accelerator -= timePerFrame_;
 
             ProcessEvents();
 
-            Update(timePerFrame);
+            Update(timePerFrame_);
 
             lastUpdateTime = Time::Now();
         }
@@ -50,8 +49,8 @@ void bs::Engine::Run()
 
         const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
 
-        while (Time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame - renderTime
-               && Time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame)
+        while (Time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame_ - renderTime
+               && Time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame_)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
@@ -71,6 +70,8 @@ void bs::Engine::LoadConfig()
     resources_->PreloadAssets();
 
     scene_ = std::move(resources_->LoadScene());
+
+    timePerFrame_ = (1.f / 60.f) * 1000.f;
 }
 
 void bs::Engine::ProcessEvents()

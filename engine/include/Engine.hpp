@@ -27,6 +27,8 @@ namespace bs
 	private:
 		bool quitRequested_;
 
+		float timePerFrame_;
+
 		std::unique_ptr<Scene> scene_;
 		std::unique_ptr<RenderWindow> window_;
 		std::unique_ptr<ResourceManager> resources_;
