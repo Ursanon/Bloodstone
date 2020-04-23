@@ -1,17 +1,17 @@
 #include "Core/Time/Stopwatch.hpp"
 
 bs::Stopwatch::Stopwatch()
-	: startPoint_(Time::Now())
+	: startPoint_(time::Now())
 {
 }
 
 void bs::Stopwatch::Stop()
 {
-	endPoint_ = Time::Now();
+	endPoint_ = time::Now();
 }
 
 void bs::Stopwatch::Restart()
 {
-	startPoint_ = Time::Now();
+	startPoint_ = time::Now();
 	endPoint_ = startPoint_;
 }

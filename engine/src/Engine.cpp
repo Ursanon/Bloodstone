@@ -12,9 +12,8 @@ bs::Engine::Engine()
 void bs::Engine::Run()
 {
     LoadConfig();
-    const double timePerFrame = (1.0 / 60.0) * 1000.0;
 
-    double accelerator = 0;
+    float accelerator = 0;
     TimePoint lastUpdateTime;
     TimePoint lastRenderTime;
     Stopwatch frameStopwatch;
@@ -25,34 +24,33 @@ void bs::Engine::Run()
         ProcessEvents();
 
         frameStopwatch.Stop();
-        const double lastFrameTime = frameStopwatch.GetElapsedTime<std::milli>();
+        const float lastFrameTime = frameStopwatch.GetElapsedTime<std::milli>();
         frameStopwatch.Restart();
 
-        printf("Frametime: %.4f [ms] || ", lastFrameTime);
+        printf("Frametime: %.4f [ms] \n", lastFrameTime);
 
         accelerator += lastFrameTime;
-        while (accelerator > timePerFrame)
+        while (accelerator > timePerFrame_)
         {
-            accelerator -= timePerFrame;
+            accelerator -= timePerFrame_;
 
             ProcessEvents();
 
-            Update(timePerFrame);
+            Update(timePerFrame_);
 
-            lastUpdateTime = Time::Now();
+            lastUpdateTime = time::Now();
         }
 
         renderStopwatch.Restart();
 
         Render();
-        lastRenderTime = Time::Now();
+        lastRenderTime = time::Now();
         renderStopwatch.Stop();
 
         const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
-        printf("Render: %.4f [ms]\n", renderTime);
 
-        while (Time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame - renderTime
-               && Time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame)
+        while (time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame_ - renderTime
+               && time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame_)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
@@ -72,6 +70,8 @@ void bs::Engine::LoadConfig()
     resources_->PreloadAssets();
 
     scene_ = std::move(resources_->LoadScene());
+
+    timePerFrame_ = (1.f / 60.f) * 1000.f;
 }
 
 void bs::Engine::ProcessEvents()
