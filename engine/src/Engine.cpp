@@ -12,9 +12,9 @@ bs::Engine::Engine()
 void bs::Engine::Run()
 {
     LoadConfig();
-    const double timePerFrame = (1.0 / 60.0) * 1000.0;
+    const float timePerFrame = (1.0 / 60.0) * 1000.0;
 
-    double accelerator = 0;
+    float accelerator = 0;
     TimePoint lastUpdateTime;
     TimePoint lastRenderTime;
     Stopwatch frameStopwatch;
@@ -25,7 +25,7 @@ void bs::Engine::Run()
         ProcessEvents();
 
         frameStopwatch.Stop();
-        const double lastFrameTime = frameStopwatch.GetElapsedTime<std::milli>();
+        const float lastFrameTime = frameStopwatch.GetElapsedTime<std::milli>();
         frameStopwatch.Restart();
 
         printf("Frametime: %.4f [ms] || ", lastFrameTime);
@@ -49,7 +49,6 @@ void bs::Engine::Run()
         renderStopwatch.Stop();
 
         const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
-        printf("Render: %.4f [ms]\n", renderTime);
 
         while (Time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame - renderTime
                && Time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame)

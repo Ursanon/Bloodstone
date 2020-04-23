@@ -9,7 +9,6 @@ typedef std::chrono::high_resolution_clock::duration TimeDuration;
 template<typename TPeriod>
 using ElapsedDouble = std::chrono::duration<double, TPeriod>;
 
-
 namespace bs
 {
 	class Time sealed

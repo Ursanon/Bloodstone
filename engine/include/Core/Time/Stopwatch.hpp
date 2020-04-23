@@ -15,7 +15,7 @@ namespace bs
 		void Restart();
 
 		template <typename TPeriod>
-		double GetElapsedTime();
+		float GetElapsedTime();
 
 	private:
 		TimePoint endPoint_;
@@ -23,9 +23,9 @@ namespace bs
 	};
 
 	template<typename TPeriod>
-	inline double Stopwatch::GetElapsedTime()
+	inline float Stopwatch::GetElapsedTime()
 	{
-		return std::chrono::duration<double, TPeriod>(endPoint_ - startPoint_).count();
+		return std::chrono::duration<float, TPeriod>(endPoint_ - startPoint_).count();
 	}
 }
 
