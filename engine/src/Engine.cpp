@@ -50,7 +50,7 @@ void bs::Engine::Run()
         const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
 
         while (time::ElapsedFrom<std::milli>(lastRenderTime) < timePerFrame_ - renderTime
-               && time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame_)
+               && time::ElapsedFrom<std::milli>(lastUpdateTime) < timePerFrame_ - renderTime)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
@@ -94,6 +94,7 @@ void bs::Engine::ProcessEvents()
 
 void bs::Engine::Update(float deltaTime)
 {
+    scene_->Update(deltaTime);
 }
 
 void bs::Engine::Render()

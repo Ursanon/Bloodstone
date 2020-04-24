@@ -1,5 +1,7 @@
 #include "Components/GameEntity.hpp"
 
+#include <cstdio>
+
 bs::GameEntity::GameEntity(int id)
 	: id_(id)
 {
@@ -12,4 +14,5 @@ int bs::GameEntity::GetId() const
 
 void bs::GameEntity::Update(float deltaTime)
 {
+	printf("Updating %d", id_);
 }
