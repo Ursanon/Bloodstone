@@ -23,7 +23,7 @@ namespace bs
 
 		void Display();
 
-		virtual SDL_Renderer* GetRenderer() override;
+		virtual SDL_Renderer* GetRenderer() const override;
 
 	private:
 		SDL_Renderer* renderer_;

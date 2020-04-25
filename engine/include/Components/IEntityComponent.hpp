@@ -6,7 +6,7 @@ namespace bs
 	class IEntityComponent
 	{
 	public:
-		virtual void Update(float deltaTime) = 0;
+		virtual void Update(const float& deltaTime) = 0;
 	};
 }
 

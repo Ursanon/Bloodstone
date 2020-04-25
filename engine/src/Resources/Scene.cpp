@@ -1,14 +1,11 @@
 #include "Resources/Scene.hpp"
 
-void bs::Scene::Update(float deltaTime)
+void bs::Scene::AddEntity(std::unique_ptr<GameEntity>& entity)
 {
+	entities_.push_back(std::move(entity));
 }
 
-void bs::Scene::Draw(const IRenderTarget& target)
+std::vector<std::unique_ptr<bs::GameEntity>>& bs::Scene::GetEntities()
 {
-}
-
-void bs::Scene::AddEntity(const GameEntity& entity)
-{
-	entities_.push_back(entity);
+	return entities_;
 }

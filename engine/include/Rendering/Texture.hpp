@@ -9,11 +9,14 @@
 namespace bs
 {
 	class Texture
+		: public IDrawable
 	{
 	public:
 		static std::unique_ptr<bs::Texture> LoadFromFile(const std::string& path, IRenderTarget& context);
 
 		~Texture();
+
+		virtual void Draw(const IRenderTarget& target) override;
 
 	protected:
 		explicit Texture(SDL_Texture* texture);

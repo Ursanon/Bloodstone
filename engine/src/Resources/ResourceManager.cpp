@@ -1,5 +1,7 @@
 #include "Resources/ResourceManager.hpp"
 
+#include "Components/SpriteRenderer.hpp"
+
 bs::ResourceManager::ResourceManager(IRenderTarget& context)
 	: context_(context)
 {
@@ -26,9 +28,10 @@ std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
 {
 	auto fakeScene = std::make_unique<Scene>();
 
-	auto entity = GameEntity(0);
-
-	fakeScene->AddEntity(entity);
+	auto entity = std::unique_ptr<GameEntity>(new GameEntity(0));
+	std::shared_ptr<IEntityComponent> component = std::make_shared<SpriteRenderer>(textures_[0].get());
+	entity->AddComponent(component);
+	fakeScene->AddEntity(std::move(entity));
 
 	return fakeScene;
 }
