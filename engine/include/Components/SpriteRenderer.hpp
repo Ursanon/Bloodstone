@@ -10,7 +10,7 @@ namespace bs
 		: public IDrawableComponent
 	{
 	public:
-		SpriteRenderer(Texture* texture);
+		explicit SpriteRenderer(Texture* texture);
 
 		virtual void Update(const float& deltaTime) override;
 
