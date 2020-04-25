@@ -7,6 +7,11 @@ bs::GameEntity::GameEntity(int id)
 {
 }
 
+bs::GameEntity::~GameEntity()
+{
+	printf("\nDestroying entity: { %d }", id_);
+}
+
 int bs::GameEntity::GetId() const
 {
 	return id_;
@@ -17,9 +22,22 @@ void bs::GameEntity::Update(const float& deltaTime)
 	printf("Updating %d", id_);
 }
 
-void bs::GameEntity::Draw(const IRenderTarget& target)
+
+const std::vector<std::shared_ptr<bs::IDrawableComponent>> bs::GameEntity::GetDrawableComponents()
 {
-	printf("Rendering entity [%d]", id_);
+	std::vector<std::shared_ptr<bs::IDrawableComponent>> drawables;
+
+	for (auto&& component : components_)
+	{
+		auto drawable = std::dynamic_pointer_cast<IDrawableComponent>(component);
+
+		if (drawable)
+		{
+			drawables.push_back(drawable);
+		}
+	}
+
+	return drawables;
 }
 
 void bs::GameEntity::AddComponent(std::shared_ptr<IEntityComponent>& component)

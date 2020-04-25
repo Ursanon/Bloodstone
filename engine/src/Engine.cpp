@@ -94,13 +94,27 @@ void bs::Engine::ProcessEvents()
 
 void bs::Engine::Update(float deltaTime)
 {
-    scene_->Update(deltaTime);
+    auto& entities = scene_->GetEntities();
+    for (auto&& entity : entities)
+    {
+        entity->Update(deltaTime);
+    }
 }
 
 void bs::Engine::Render()
 {
     auto clearColor = Color(0.15f, 0.15f, 0.8f);
     window_->Clear(clearColor);
+
+    auto& entities = scene_->GetEntities();
+	for (auto&& entity : entities)
+	{
+		auto drawables = entity->GetDrawableComponents();
+		for (auto&& drawable : drawables)
+		{
+			drawable->Draw(*window_);
+		}
+	}
 
     window_->Display();
 }

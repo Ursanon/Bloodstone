@@ -3,22 +3,26 @@
 
 #include <memory>
 #include <vector>
-#include "Rendering/IDrawable.hpp"
+#include "Components/IDrawableComponent.hpp"
 #include "Components/IEntityComponent.hpp"
 
 namespace bs
 {
-	class GameEntity : IEntityComponent, IDrawable
+	class GameEntity
+		: public IEntityComponent
 	{
 	public:
 		explicit GameEntity(int id);
+
+		virtual ~GameEntity();
 
 		int GetId() const;
 
 		void AddComponent(std::shared_ptr<IEntityComponent>& component);
 
 		virtual void Update(const float& deltaTime) override;
-		virtual void Draw(const IRenderTarget& target) override;
+
+		const std::vector<std::shared_ptr<IDrawableComponent>> GetDrawableComponents();
 
 	private:
 		int id_;

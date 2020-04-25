@@ -11,12 +11,19 @@ std::unique_ptr<bs::Texture> bs::Texture::LoadFromFile(const std::string& path, 
 	return std::unique_ptr<Texture>(new Texture(tex));
 }
 
+bs::Texture::Texture(SDL_Texture* texture)
+	: texture_(texture)
+{
+}
+
 bs::Texture::~Texture()
 {
 	SDL_DestroyTexture(texture_);
 }
 
-bs::Texture::Texture(SDL_Texture* texture)
-	: texture_(texture)
+void bs::Texture::Draw(const IRenderTarget& target)
 {
+	auto renderer = target.GetRenderer();
+
+	SDL_RenderCopy(renderer, texture_, nullptr, nullptr);
 }

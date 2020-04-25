@@ -8,17 +8,15 @@
 namespace bs
 {
 	// TODO: #5
-	class Scene : IDrawable
+	class Scene
 	{
 	public:
-		void Update(float deltaTime);
+		void AddEntity(std::unique_ptr<GameEntity>& entity);
 
-		virtual void Draw(const IRenderTarget& target) override;
-
-		void AddEntity(const GameEntity& entity);
+		std::vector<std::unique_ptr<GameEntity>>& GetEntities();
 
 	private:
-		std::vector<GameEntity> entities_;
+		std::vector<std::unique_ptr<GameEntity>> entities_;
 	};
 }
 

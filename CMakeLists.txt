@@ -19,10 +19,7 @@ set(GAME_INCLUDE_DIR "${GAME_DIR}/include")
 set(GAME_SRC_DIR "${GAME_DIR}/src")
 
 include_directories("${ENGINE_INCLUDE_DIR}")
-include_directories("${ENGINE_SRC_DIR}")
-
 include_directories("${GAME_INCLUDE_DIR}")
-include_directories("${GAME_SRC_DIR}")
 
 file(GLOB_RECURSE ALL_SRC
     "${ENGINE_INCLUDE_DIR}/*.hpp"
