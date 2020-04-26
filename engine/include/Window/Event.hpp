@@ -5,20 +5,20 @@
 
 namespace bs
 {
+	enum class EventType
+	{
+		WindowClose,
+		KeyPressed,
+		KeyReleased,
+	};
+
+	struct KeyEvent
+	{
+		Keyboard::Key Code;
+	};
+
 	struct Event
 	{
-		enum class EventType
-		{
-			WindowClose,
-			KeyPressed,
-			KeyReleased,
-		};
-
-		struct KeyEvent
-		{
-			Keyboard::Key Code;
-		};
-
 		EventType Type;
 
 		union

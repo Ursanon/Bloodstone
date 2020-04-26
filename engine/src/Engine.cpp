@@ -103,10 +103,10 @@ void bs::Engine::ProcessEvents()
     {
         switch (event.Type)
         {
-        case Event::EventType::WindowClose:
+        case EventType::WindowClose:
             quitRequested_ = true;
             break;
-        case Event::EventType::KeyReleased:
+        case EventType::KeyReleased:
             quitRequested_ = event.Key.Code == Keyboard::Key::Escape;
             break;
         }
