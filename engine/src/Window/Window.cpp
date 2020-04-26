@@ -21,11 +21,11 @@ bool bs::Window::PoolEvents(Event& event)
     switch (nativeEvent.type)
     {
     case SDL_QUIT:
-        event.Type = Event::EventType::WindowClose;
+        event.Type = EventType::WindowClose;
         break;
     case SDL_KEYUP:
         {
-            event.Type = Event::EventType::KeyReleased;
+            event.Type = EventType::KeyReleased;
             switch (nativeEvent.key.keysym.sym)
             {
             case SDLK_ESCAPE:
