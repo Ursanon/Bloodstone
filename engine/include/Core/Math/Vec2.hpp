@@ -1,4 +1,9 @@
-namespace bs::math
+#ifndef VEC2_HPP
+#define VEC2_HPP
+
+#include "ThirdParty/json.hpp"
+
+namespace bs
 {
 	template<typename T>
 	struct Vec2
@@ -21,4 +26,7 @@ namespace bs::math
 
 	typedef Vec2<int> Vec2i;
 	typedef Vec2<float> Vec2f;
+	typedef Vec2<unsigned int> Resolution;
 }
+
+#endif

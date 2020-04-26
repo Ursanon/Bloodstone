@@ -1,0 +1,8 @@
+{
+    "Name": "Bloodstone Engine",
+    "TargetFPS": 60,
+    "Resolution": {
+        "X": 640,
+        "Y": 480
+    }
+}

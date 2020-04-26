@@ -13,7 +13,7 @@ namespace bs
 	class Window
 	{
 	public:
-		Window(const std::string& name, const math::Vec2i& size, const WindowMode mode = WindowMode::Windowed);
+		Window(const std::string& name, const Resolution& size, const WindowMode mode = WindowMode::Windowed);
 
 		virtual ~Window();
 

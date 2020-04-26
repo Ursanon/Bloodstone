@@ -14,7 +14,7 @@ namespace bs
 		, public IRenderTarget
 	{
 	public:
-		RenderWindow(const std::string& name, const math::Vec2i& size, const WindowMode mode = WindowMode::Windowed);
+		RenderWindow(const std::string& name, const Resolution& size, const WindowMode mode = WindowMode::Windowed);
 
 		virtual ~RenderWindow();
 

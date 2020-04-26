@@ -16,7 +16,6 @@ namespace bs
 
 		virtual void Draw(const IRenderTarget& target) override;
 
-
 	private:
 		Texture* texture_;
 	};

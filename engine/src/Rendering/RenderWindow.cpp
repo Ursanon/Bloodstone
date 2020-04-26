@@ -1,6 +1,6 @@
 #include "Rendering/RenderWindow.hpp"
 
-bs::RenderWindow::RenderWindow(const std::string& name, const math::Vec2i& size, const WindowMode mode)
+bs::RenderWindow::RenderWindow(const std::string& name, const Resolution& size, const WindowMode mode)
 	: Window(name, size, mode)
 {
 	renderer_ = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
