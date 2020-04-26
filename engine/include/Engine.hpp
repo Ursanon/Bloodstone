@@ -2,6 +2,7 @@
 #define ENGINE_HPP
 
 #include <memory>
+#include "EngineConfiguration.hpp"
 #include "Rendering/RenderWindow.hpp"
 #include "Resources/Scene.hpp"
 #include "Resources/ResourceManager.hpp"
@@ -18,16 +19,18 @@ namespace bs
 	private:
 		void LoadConfig();
 
+		void InitializeWindow();
+
 		void ProcessEvents();
-
+		void Update(const float& deltaTime);
 		void Render();
-
-		void Update(float deltaTime);
 
 	private:
 		bool quitRequested_;
 
 		float timePerFrame_;
+
+		EngineConfiguration config_;
 
 		std::unique_ptr<Scene> scene_;
 		std::unique_ptr<RenderWindow> window_;

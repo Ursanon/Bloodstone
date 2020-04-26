@@ -2,7 +2,13 @@
 
 #include <chrono>
 #include <thread>
+#include <iostream>
+#include <fstream>
+#include <exception>
+#include "Core/JsonUtility.hpp"
 #include "Core/Time/Stopwatch.hpp"
+
+using json = nlohmann::json;
 
 bs::Engine::Engine()
 	: quitRequested_(false)
@@ -12,6 +18,7 @@ bs::Engine::Engine()
 void bs::Engine::Run()
 {
     LoadConfig();
+    InitializeWindow();
 
     float accelerator = 0;
     TimePoint lastUpdateTime;
@@ -59,11 +66,25 @@ void bs::Engine::Run()
 
 void bs::Engine::LoadConfig()
 {
-    const bs::math::Vec2i resolution(640, 480);
-    const WindowMode mode = WindowMode::Windowed;
-    const std::string title = "Bloodstone Engine";
+    std::ifstream stream;
+    stream.open("Assets/config.json");
 
-    window_ = std::make_unique<RenderWindow>(title, resolution, mode);
+    if (!stream.is_open())
+    {
+        throw std::exception("Cannot load config file!");
+    }
+
+    json json;
+    stream >> json;
+    stream.close();
+
+    config_ = json.get<EngineConfiguration>();
+}
+
+void bs::Engine::InitializeWindow()
+{
+    const WindowMode mode = WindowMode::Windowed;
+    window_ = std::make_unique<RenderWindow>(config_.Name, config_.Resolution, mode);
 
     auto target = static_cast<IRenderTarget*>(window_.get());
     resources_ = std::make_unique<ResourceManager>(*target);
@@ -71,7 +92,7 @@ void bs::Engine::LoadConfig()
 
     scene_ = std::move(resources_->LoadScene());
 
-    timePerFrame_ = (1.f / 60.f) * 1000.f;
+    timePerFrame_ = (1.f / config_.TargetFPS) * 1000.f;
 }
 
 void bs::Engine::ProcessEvents()
@@ -92,7 +113,7 @@ void bs::Engine::ProcessEvents()
     }
 }
 
-void bs::Engine::Update(float deltaTime)
+void bs::Engine::Update(const float& deltaTime)
 {
     auto& entities = scene_->GetEntities();
     for (auto&& entity : entities)

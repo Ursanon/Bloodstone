@@ -1,6 +1,6 @@
 #include "Window/Window.hpp"
 
-bs::Window::Window(const std::string& name, const math::Vec2i& size, const WindowMode mode)
+bs::Window::Window(const std::string& name, const Resolution& size, const WindowMode mode)
 {
 	SDL_Init(SDL_INIT_VIDEO);
 
