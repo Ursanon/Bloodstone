@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 #include "SDL.h"
-#include "Rendering/Texture.hpp"
+#include "Rendering/Sprite.hpp"
 #include "Resources/Scene.hpp"
 
 namespace bs
@@ -24,6 +24,7 @@ namespace bs
 
 		// TODO: #3
 		std::map<int, std::string> assetsToLoad_;
+		std::map<int, std::unique_ptr<Sprite>> sprites_;
 		std::map<int, std::unique_ptr<Texture>> textures_;
 	};
 }

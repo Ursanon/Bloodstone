@@ -1,6 +1,7 @@
 #ifndef ENGINE_CONFIGURATION_HPP
 #define ENGINE_CONFIGURATION_HPP
 
+#include <string>
 #include "Core/Math/Vec2.hpp"
 
 namespace bs

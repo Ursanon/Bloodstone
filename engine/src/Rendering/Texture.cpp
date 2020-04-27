@@ -12,18 +12,16 @@ std::unique_ptr<bs::Texture> bs::Texture::LoadFromFile(const std::string& path, 
 }
 
 bs::Texture::Texture(SDL_Texture* texture)
-	: texture_(texture)
+	: nativeTexture_(texture)
 {
 }
 
 bs::Texture::~Texture()
 {
-	SDL_DestroyTexture(texture_);
+	SDL_DestroyTexture(nativeTexture_);
 }
 
-void bs::Texture::Draw(const IRenderTarget& target)
+SDL_Texture* bs::Texture::GetNativeHandle()
 {
-	auto renderer = target.GetRenderer();
-
-	SDL_RenderCopy(renderer, texture_, nullptr, nullptr);
+	return nativeTexture_;
 }

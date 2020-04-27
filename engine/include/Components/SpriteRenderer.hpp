@@ -1,7 +1,7 @@
 #ifndef SPRITE_RENDERER_HPP
 #define SPRITE_RENDERER_HPP
 
-#include "Rendering/Texture.hpp"
+#include "Rendering/Sprite.hpp"
 #include "Components/IDrawableComponent.hpp"
 
 namespace bs
@@ -10,14 +10,14 @@ namespace bs
 		: public IDrawableComponent
 	{
 	public:
-		explicit SpriteRenderer(Texture* texture);
+		explicit SpriteRenderer(Sprite* texture);
 
 		virtual void Update(const float& deltaTime) override;
 
 		virtual void Draw(const IRenderTarget& target) override;
 
 	private:
-		Texture* texture_;
+		Sprite* sprite_;
 	};
 }
 
