@@ -3,9 +3,19 @@
 
 #include "ThirdParty/json.hpp"
 #include "EngineConfiguration.hpp"
+#include "Rendering/Sprite.hpp"
 
 namespace bs
 {
+	template <typename T>
+	void from_json(const nlohmann::json& json, Rect<T>& rect)
+	{
+		json.at("X").get_to(rect.X);
+		json.at("Y").get_to(rect.Y);
+		json.at("Width").get_to(rect.Width);
+		json.at("Height").get_to(rect.Height);
+	}
+
 	template <typename T>
 	void from_json(const nlohmann::json& json, Vec2<T>& resolution)
 	{
@@ -13,12 +23,24 @@ namespace bs
 		json.at("Y").get_to(resolution.Y);
 	}
 
-	void from_json(const nlohmann::json& json, EngineConfiguration& config)
+	inline void from_json(const nlohmann::json& json, EngineConfiguration& config)
 	{
 		json.at("Name").get_to(config.Name);
 		json.at("TargetFPS").get_to(config.TargetFPS);
 		json.at("Resolution").get_to(config.Resolution);
 	}
+
+	inline void from_json(const nlohmann::json& json, SpriteMeta& meta)
+	{
+		json.at("Id").get_to(meta.Id);
+		json.at("Rect").get_to(meta.Rect);
+	}
+
+	inline void from_json(const nlohmann::json& json, TextureMeta& meta)
+	{
+		json.at("Id").get_to(meta.Id);
+		json.at("Sprites").get_to(meta.Sprites);
+	}
 }
 
-#endif //!JSON_UTILITY_HPP
+#endif // !JSON_UTILITY_HPP
