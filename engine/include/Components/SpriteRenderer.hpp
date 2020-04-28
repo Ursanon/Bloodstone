@@ -18,6 +18,9 @@ namespace bs
 
 	private:
 		Sprite* sprite_;
+
+		SDL_Rect spriteRect_;
+		SDL_Rect positionRect_;
 	};
 }
 

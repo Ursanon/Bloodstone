@@ -13,27 +13,23 @@ void bs::SpriteRenderer::Update(const float& deltaTime)
 
 void bs::SpriteRenderer::Draw(const IRenderTarget& target)
 {
-	auto renderer = target.GetRenderer();
-	auto texture = sprite_->GetTexture()->GetNativeHandle();
+	auto* renderer = target.GetRenderer();
+	auto* texture = sprite_->GetTexture()->GetNativeHandle();
 
 	auto& spriteRect = sprite_->GetRect();
 
-	SDL_Rect rect;
-
-	rect.x = spriteRect.X;
-	rect.y = spriteRect.Y;
-	rect.w = spriteRect.Width;
-	rect.h = spriteRect.Height;
+	spriteRect_.x = spriteRect.X;
+	spriteRect_.y = spriteRect.Y;
+	spriteRect_.w = spriteRect.Width;
+	spriteRect_.h = spriteRect.Height;
 
 	auto* transform = GetEntity()->GetTransform();
 	auto& position = transform->GetPosition();
 
-	SDL_Rect renderRect;
+	positionRect_.x = position.X;
+	positionRect_.y = position.Y;
+	positionRect_.w = spriteRect.Width;
+	positionRect_.h = spriteRect.Height;
 
-	renderRect.x = position.X;
-	renderRect.y = position.Y;
-	renderRect.w = spriteRect.Width;
-	renderRect.h = spriteRect.Height;
-
-	SDL_RenderCopy(renderer, texture, &rect, &renderRect);
+	SDL_RenderCopy(renderer, texture, &spriteRect_, &positionRect_);
 }
