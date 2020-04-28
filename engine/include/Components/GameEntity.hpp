@@ -5,6 +5,7 @@
 #include <vector>
 #include "Components/IDrawableComponent.hpp"
 #include "Components/IEntityComponent.hpp"
+#include "Components/Transform.hpp"
 
 namespace bs
 {
@@ -18,6 +19,8 @@ namespace bs
 
 		int GetId() const;
 
+		Transform* GetTransform();
+
 		void AddComponent(std::shared_ptr<IEntityComponent>& component);
 
 		virtual void Update(const float& deltaTime) override;
@@ -26,7 +29,8 @@ namespace bs
 
 	private:
 		int id_;
-
+		
+		std::shared_ptr<Transform> transform_;
 		std::vector<std::shared_ptr<IEntityComponent>> components_;
 	};
 }

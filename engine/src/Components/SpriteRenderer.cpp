@@ -23,5 +23,12 @@ void bs::SpriteRenderer::Draw(const IRenderTarget& target)
 	rect.w = spriteRect.Width;
 	rect.h = spriteRect.Height;
 
-	SDL_RenderCopy(renderer, texture, &rect, nullptr);
+	SDL_Rect renderRect;
+
+	renderRect.x = 0;
+	renderRect.y = 0;
+	renderRect.w = 75;
+	renderRect.h = 75;
+
+	SDL_RenderCopy(renderer, texture, &rect, &renderRect);
 }
