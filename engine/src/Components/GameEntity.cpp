@@ -3,8 +3,12 @@
 #include <cstdio>
 
 bs::GameEntity::GameEntity(int id)
-	: id_(id)
+	: Component(this)
+	, id_(id)
 {
+	transform_ = std::make_shared<Transform>(this);
+
+	components_.push_back(transform_);
 }
 
 bs::GameEntity::~GameEntity()
@@ -17,11 +21,15 @@ int bs::GameEntity::GetId() const
 	return id_;
 }
 
+bs::Transform* bs::GameEntity::GetTransform()
+{
+	return transform_.get();
+}
+
 void bs::GameEntity::Update(const float& deltaTime)
 {
 	printf("Updating %d", id_);
 }
-
 
 const std::vector<std::shared_ptr<bs::IDrawableComponent>> bs::GameEntity::GetDrawableComponents()
 {

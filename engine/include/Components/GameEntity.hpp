@@ -4,12 +4,13 @@
 #include <memory>
 #include <vector>
 #include "Components/IDrawableComponent.hpp"
-#include "Components/IEntityComponent.hpp"
+#include "Components/Component.hpp"
+#include "Components/Transform.hpp"
 
 namespace bs
 {
 	class GameEntity
-		: public IEntityComponent
+		: public Component
 	{
 	public:
 		explicit GameEntity(int id);
@@ -17,6 +18,8 @@ namespace bs
 		virtual ~GameEntity();
 
 		int GetId() const;
+
+		Transform* GetTransform();
 
 		void AddComponent(std::shared_ptr<IEntityComponent>& component);
 
@@ -26,7 +29,8 @@ namespace bs
 
 	private:
 		int id_;
-
+		
+		std::shared_ptr<Transform> transform_;
 		std::vector<std::shared_ptr<IEntityComponent>> components_;
 	};
 }

@@ -58,7 +58,7 @@ std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
 	auto fakeScene = std::make_unique<Scene>();
 
 	auto entity = std::unique_ptr<GameEntity>(new GameEntity(0));
-	std::shared_ptr<IEntityComponent> component = std::make_shared<SpriteRenderer>(sprites_[101].get());
+	std::shared_ptr<IEntityComponent> component = std::make_shared<SpriteRenderer>(entity.get(), sprites_[101].get());
 	entity->AddComponent(component);
 	fakeScene->AddEntity(std::move(entity));
 

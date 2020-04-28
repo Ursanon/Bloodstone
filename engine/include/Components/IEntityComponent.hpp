@@ -3,10 +3,14 @@
 
 namespace bs
 {
+	class GameEntity;
+
 	class IEntityComponent
 	{
 	public:
 		virtual void Update(const float& deltaTime) = 0;
+
+		virtual GameEntity* GetEntity() = 0;
 	};
 }
 
