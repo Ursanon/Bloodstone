@@ -1,5 +1,10 @@
 #include "Components/Transform.hpp"
 
+bs::Transform::Transform(GameEntity* entity)
+	: Component(entity)
+{
+}
+
 const bs::Vec2f& bs::Transform::GetPosition()
 {
 	return position_;

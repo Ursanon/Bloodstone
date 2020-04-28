@@ -1,17 +1,20 @@
 #ifndef IDRAWABLE_COMPONENT_HPP
 #define IDRAWABLE_COMPONENT_HPP
 
-#include "Components/IEntityComponent.hpp"
+#include "Components/Component.hpp"
 #include "Rendering/IDrawable.hpp"
 
 namespace bs
 {
 	class IDrawableComponent
-		: public IEntityComponent
+		: public Component
 		, public IDrawable
 	{
 	public:
-		virtual void Update(const float& deltaTime) = 0;
+		IDrawableComponent(GameEntity* entity)
+			: Component(entity)
+		{
+		}
 
 		virtual void Draw(const IRenderTarget& target) = 0;
 	};

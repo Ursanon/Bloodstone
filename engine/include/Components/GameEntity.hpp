@@ -4,13 +4,13 @@
 #include <memory>
 #include <vector>
 #include "Components/IDrawableComponent.hpp"
-#include "Components/IEntityComponent.hpp"
+#include "Components/Component.hpp"
 #include "Components/Transform.hpp"
 
 namespace bs
 {
 	class GameEntity
-		: public IEntityComponent
+		: public Component
 	{
 	public:
 		explicit GameEntity(int id);

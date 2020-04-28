@@ -1,8 +1,8 @@
 #ifndef SPRITE_RENDERER_HPP
 #define SPRITE_RENDERER_HPP
 
-#include "Rendering/Sprite.hpp"
 #include "Components/IDrawableComponent.hpp"
+#include "Rendering/Sprite.hpp"
 
 namespace bs
 {
@@ -10,7 +10,7 @@ namespace bs
 		: public IDrawableComponent
 	{
 	public:
-		explicit SpriteRenderer(Sprite* texture);
+		explicit SpriteRenderer(GameEntity* entity, Sprite* texture);
 
 		virtual void Update(const float& deltaTime) override;
 

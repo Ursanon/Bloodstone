@@ -1,7 +1,9 @@
 #include "Components/SpriteRenderer.hpp"
+#include "Components/GameEntity.hpp"
 
-bs::SpriteRenderer::SpriteRenderer(Sprite* sprite)
-	: sprite_(sprite)
+bs::SpriteRenderer::SpriteRenderer(GameEntity* entity, Sprite* sprite)
+	: IDrawableComponent(entity)
+	, sprite_(sprite)
 {
 }
 
@@ -23,12 +25,15 @@ void bs::SpriteRenderer::Draw(const IRenderTarget& target)
 	rect.w = spriteRect.Width;
 	rect.h = spriteRect.Height;
 
+	auto* transform = GetEntity()->GetTransform();
+	auto& position = transform->GetPosition();
+
 	SDL_Rect renderRect;
 
-	renderRect.x = 0;
-	renderRect.y = 0;
-	renderRect.w = 75;
-	renderRect.h = 75;
+	renderRect.x = position.X;
+	renderRect.y = position.Y;
+	renderRect.w = spriteRect.Width;
+	renderRect.h = spriteRect.Height;
 
 	SDL_RenderCopy(renderer, texture, &rect, &renderRect);
 }

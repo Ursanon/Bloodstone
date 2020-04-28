@@ -2,14 +2,16 @@
 #define TRANSFORM_HPP
 
 #include "Core/Math/Vec2.hpp"
-#include "Components/IEntityComponent.hpp"
+#include "Components/Component.hpp"
 
 namespace bs
 {
 	class Transform
-		: public IEntityComponent
+		: public Component
 	{
 	public:
+		Transform(GameEntity* entity);
+
 		const Vec2f& GetPosition();
 
 		void SetPosition(const Vec2f& position);

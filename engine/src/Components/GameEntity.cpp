@@ -3,9 +3,10 @@
 #include <cstdio>
 
 bs::GameEntity::GameEntity(int id)
-	: id_(id)
+	: Component(this)
+	, id_(id)
 {
-	transform_ = std::make_shared<Transform>();
+	transform_ = std::make_shared<Transform>(this);
 
 	components_.push_back(transform_);
 }
