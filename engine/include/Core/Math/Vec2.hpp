@@ -18,11 +18,14 @@ namespace bs
 		static Vec2<T> One();
 		static Vec2<T> Zero();
 
+		static Vec2<T> Lerp(const Vec2<T>& a, const Vec2<T>& b, const float& t);
+
 		bool operator!= (const Vec2<T>& rhs) const;
 		bool operator== (const Vec2<T>& rhs) const;
 		Vec2<T> operator+ (const Vec2<T>& rhs) const;
+		Vec2<T> operator* (const T& scalar) const;
 
-		Vec2<T>& operator* (const T& scalar);
+		Vec2<T>& operator*= (const T& scalar);
 		Vec2<T>& operator+= (const Vec2<T>& rhs);
 	};
 
@@ -65,6 +68,12 @@ namespace bs
 		return Vec2<T>();
 	}
 
+	template<typename T>
+	Vec2<T> Vec2<T>::Lerp(const Vec2<T>& a, const Vec2<T>& b, const float& t)
+	{
+		return a * (1 - t) + b * t;
+	}
+
 	template <typename T>
 	bool Vec2<T>::operator!= (const Vec2<T>& rhs) const
 	{
@@ -86,7 +95,13 @@ namespace bs
 	}
 
 	template <typename T>
-	Vec2<T>& Vec2<T>::operator* (const T& scalar)
+	Vec2<T> Vec2<T>::operator* (const T& scalar) const
+	{
+		return Vec2<T>(this->X * scalar, this->Y * scalar);
+	}
+
+	template <typename T>
+	Vec2<T>& Vec2<T>::operator*= (const T& scalar)
 	{
 		X *= scalar;
 		Y *= scalar;

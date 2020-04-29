@@ -16,10 +16,12 @@ void bs::game::PlayerController::Update(const float& deltaTime)
 
 	if (direction != Vec2f::Zero())
 	{
-		auto& positon = transform_->GetPosition();
-		auto newPositon = positon + direction * deltaTime * speed_;
+		auto& position = transform_->GetPosition();
+		auto newPosition = position + direction * speed_;
 
-		transform_->SetPosition(newPositon);
+		auto newPos = Vec2f::Lerp(position, newPosition, deltaTime);
+
+		transform_->SetPosition(newPos);
 	}
 }
 
