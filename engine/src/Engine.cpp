@@ -49,7 +49,6 @@ void bs::Engine::Run()
         }
 
         renderStopwatch.Restart();
-
         Render();
         lastRenderTime = time::Now();
         renderStopwatch.Stop();
@@ -113,12 +112,14 @@ void bs::Engine::ProcessEvents()
     }
 }
 
-void bs::Engine::Update(const float& deltaTime)
+void bs::Engine::Update(const float& deltaMilliseconds)
 {
+    auto deltaSeconds = deltaMilliseconds / 1000;
+
     auto& entities = scene_->GetEntities();
     for (auto&& entity : entities)
     {
-        entity->Update(deltaTime);
+        entity->Update(deltaSeconds);
     }
 }
 
