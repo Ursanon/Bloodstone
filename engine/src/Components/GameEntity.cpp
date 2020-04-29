@@ -29,6 +29,11 @@ bs::Transform* bs::GameEntity::GetTransform()
 void bs::GameEntity::Update(const float& deltaTime)
 {
 	printf("Updating %d", id_);
+
+	for (auto&& component : components_)
+	{
+		component->Update(deltaTime);
+	}
 }
 
 const std::vector<std::shared_ptr<bs::IDrawableComponent>> bs::GameEntity::GetDrawableComponents()

@@ -11,6 +11,19 @@ namespace bs
 
 		Vec2();
 		Vec2(const T& x, const T& y);
+
+		static Vec2<T> Up();
+		static Vec2<T> Right();
+
+		static Vec2<T> One();
+		static Vec2<T> Zero();
+
+		bool operator!= (const Vec2<T>& rhs) const;
+		bool operator== (const Vec2<T>& rhs) const;
+		Vec2<T> operator+ (const Vec2<T>& rhs) const;
+
+		Vec2<T>& operator* (const T& scalar);
+		Vec2<T>& operator+= (const Vec2<T>& rhs);
 	};
 
 	template <typename T>
@@ -25,6 +38,69 @@ namespace bs
 		: X(x)
 		, Y(y)
 	{
+	}
+
+	template <typename T>
+	Vec2<T> Vec2<T>::Up()
+	{
+		return Vec2<T>(0, 1);
+	}
+
+	template <typename T>
+	Vec2<T> Vec2<T>::Right()
+	{
+		return Vec2<T>(1, 0);
+	}
+
+
+	template <typename T>
+	Vec2<T> Vec2<T>::One()
+	{
+		return Vec2<T>(1, 1);
+	}
+
+	template <typename T>
+	Vec2<T> Vec2<T>::Zero()
+	{
+		return Vec2<T>();
+	}
+
+	template <typename T>
+	bool Vec2<T>::operator!= (const Vec2<T>& rhs) const
+	{
+		return this->X != rhs.X
+			|| this->Y != rhs.Y;
+	}
+
+	template <typename T>
+	bool Vec2<T>::operator== (const Vec2<T>& rhs) const
+	{
+		return this->X == rhs.X
+			&& this->Y == rhs.Y;
+	}
+
+	template <typename T>
+	Vec2<T> Vec2<T>::operator+ (const Vec2<T>& rhs) const
+	{
+		return Vec2<T>(this->X + rhs.X, this->Y + rhs.Y);
+	}
+
+	template <typename T>
+	Vec2<T>& Vec2<T>::operator* (const T& scalar)
+	{
+		X *= scalar;
+		Y *= scalar;
+
+		return *this;
+	}
+
+	template <typename T>
+	Vec2<T>& Vec2<T>::operator+= (const Vec2<T>& rhs)
+	{
+		X += rhs.X;
+		Y += rhs.Y;
+
+		return *this;
 	}
 
 	typedef Vec2<int> Vec2i;

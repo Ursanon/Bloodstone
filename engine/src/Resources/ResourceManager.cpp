@@ -5,6 +5,8 @@
 #include "Core/JsonUtility.hpp"
 #include "Components/SpriteRenderer.hpp"
 
+#include "Gameplay/Gameplay.hpp"
+
 bs::ResourceManager::ResourceManager(IRenderTarget& context)
 	: context_(context)
 {
@@ -58,8 +60,13 @@ std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
 	auto fakeScene = std::make_unique<Scene>();
 
 	auto entity = std::unique_ptr<GameEntity>(new GameEntity(0));
-	std::shared_ptr<IEntityComponent> component = std::make_shared<SpriteRenderer>(entity.get(), sprites_[101].get());
-	entity->AddComponent(component);
+	std::shared_ptr<IEntityComponent> spriteRenderer = std::make_shared<SpriteRenderer>(entity.get(), sprites_[101].get());
+	entity->AddComponent(spriteRenderer);
+
+	auto speed = 10;
+	std::shared_ptr<IEntityComponent> playerController = std::make_shared<game::PlayerController>(entity.get(), speed);
+	entity->AddComponent(playerController);
+
 	fakeScene->AddEntity(std::move(entity));
 
 	return fakeScene;

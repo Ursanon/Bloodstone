@@ -8,8 +8,14 @@ namespace bs
 	public:
 		enum class Key
 		{
-			Escape
+			W = 26,
+			S = 22,
+			A = 4,
+			D = 7,
+			Escape = 41
 		};
+
+		static bool isKeyPressed(const Key& key);
 	};
 }
 
