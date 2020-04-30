@@ -3,19 +3,35 @@
 #include "Components/GameEntity.hpp"
 #include "Window/Keyboard.hpp"
 
-bs::game::PlayerController::PlayerController(GameEntity* entity, const float& speed)
+bs::game::PlayerController::PlayerController(GameEntity* entity, const float& speed, const float& angularSpeed)
 	: Component(entity)
 	, speed_(speed)
+	, angularSpeed_(angularSpeed)
 {
 	transform_ = entity->GetTransform();
 }
 
 void bs::game::PlayerController::Update(const float& deltaTime)
 {
-	auto direction = HandleInput();
+	auto rotation = HandleRotation();
+
+	if (rotation != 0.f)
+	{
+		auto& oldRotation = transform_->GetRotation();
+
+		const float newRotation = oldRotation + rotation * angularSpeed_ * deltaTime;
+
+		transform_->SetRotation(newRotation);
+	}
+
+	auto direction = HandleMovement();
 
 	if (direction != Vec2f::Zero())
 	{
+		auto& currentRotation = transform_->GetRotation();
+
+		direction.Rotate(currentRotation);
+
 		auto& position = transform_->GetPosition();
 		auto newPosition = position + direction * speed_;
 
@@ -25,17 +41,9 @@ void bs::game::PlayerController::Update(const float& deltaTime)
 	}
 }
 
-bs::Vec2f bs::game::PlayerController::HandleInput() const
+bs::Vec2f bs::game::PlayerController::HandleMovement() const
 {
 	Vec2f direction;
-	if (Keyboard::isKeyPressed(Keyboard::Key::A))
-	{
-		direction = Vec2f(-1, 0);
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key::D))
-	{
-		direction = Vec2f::Right();
-	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Key::W))
 	{
@@ -50,5 +58,19 @@ bs::Vec2f bs::game::PlayerController::HandleInput() const
 		//idle
 	}
 
-	return direction;
+	return direction.Normalized();
+}
+
+float bs::game::PlayerController::HandleRotation() const
+{
+	if (Keyboard::isKeyPressed(Keyboard::Key::A))
+	{
+		return -1.f;
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::Key::D))
+	{
+		return 1.f;
+	}
+
+	return 0.f;
 }

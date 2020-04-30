@@ -13,13 +13,16 @@ namespace bs
 		Transform(GameEntity* entity);
 
 		const Vec2f& GetPosition();
+		const float& GetRotation();
 
 		void SetPosition(const Vec2f& position);
+		void SetRotation(const float& rotation);
 
 		virtual void Update(const float& deltaTime) override;
 
 	private:
 		Vec2f position_;
+		float rotation_;
 	};
 }
 

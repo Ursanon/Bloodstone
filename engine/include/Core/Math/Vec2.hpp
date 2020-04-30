@@ -1,6 +1,9 @@
 #ifndef VEC2_HPP
 #define VEC2_HPP
 
+#include <cmath>
+#include "Core/Math/Mathf.hpp"
+
 namespace bs
 {
 	template <typename T>
@@ -20,10 +23,14 @@ namespace bs
 
 		static Vec2<T> Lerp(const Vec2<T>& a, const Vec2<T>& b, const float& t);
 
+		Vec2<T> Normalized() const;
+
 		bool operator!= (const Vec2<T>& rhs) const;
 		bool operator== (const Vec2<T>& rhs) const;
 		Vec2<T> operator+ (const Vec2<T>& rhs) const;
 		Vec2<T> operator* (const T& scalar) const;
+
+		Vec2<T>& Rotate(const float& angle);
 
 		Vec2<T>& operator*= (const T& scalar);
 		Vec2<T>& operator+= (const Vec2<T>& rhs);
@@ -74,6 +81,19 @@ namespace bs
 		return a * (1 - t) + b * t;
 	}
 
+	template<typename T>
+	inline Vec2<T> Vec2<T>::Normalized() const
+	{
+		auto length = std::sqrt((this->X * this->X) + (this->Y * this->Y));
+
+		if (length == 0)
+		{
+			return Vec2<T>::Zero();
+		}
+
+		return Vec2<T>(this->X / length, this->Y / length);
+	}
+
 	template <typename T>
 	bool Vec2<T>::operator!= (const Vec2<T>& rhs) const
 	{
@@ -98,6 +118,22 @@ namespace bs
 	Vec2<T> Vec2<T>::operator* (const T& scalar) const
 	{
 		return Vec2<T>(this->X * scalar, this->Y * scalar);
+	}
+
+	template<typename T>
+	Vec2<T>& Vec2<T>::Rotate(const float& angle)
+	{
+		const float rad = angle * DEG_TO_RAD;
+		const float sin = std::sin(rad);
+		const float cos = std::cos(rad);
+
+		auto x = this->X * cos - this->Y * sin;
+		auto y = this->X * sin + this->Y * cos;
+
+		this->X = x;
+		this->Y = y;
+
+		return *this;
 	}
 
 	template <typename T>

@@ -10,15 +10,17 @@ namespace bs::game
 		: public Component
 	{
 	public:
-		PlayerController(GameEntity* entity, const float& speed);
+		PlayerController(GameEntity* entity, const float& speed, const float& angularSpeed);
 
 		virtual void Update(const float& deltaTime) override;
 
 	private:
-		Vec2f HandleInput() const;
+		Vec2f HandleMovement() const;
+		float HandleRotation() const;
 
 	private:
 		float speed_;
+		float angularSpeed_;
 
 		Transform* transform_;
 	};

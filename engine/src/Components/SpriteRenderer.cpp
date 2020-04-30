@@ -31,5 +31,7 @@ void bs::SpriteRenderer::Draw(const IRenderTarget& target)
 	positionRect_.w = spriteRect.Width;
 	positionRect_.h = spriteRect.Height;
 
-	SDL_RenderCopy(renderer, texture, &spriteRect_, &positionRect_);
+	auto& rotation = transform->GetRotation();
+
+	SDL_RenderCopyEx(renderer, texture, &spriteRect_, &positionRect_, rotation, nullptr, SDL_FLIP_NONE);
 }
