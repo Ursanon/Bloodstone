@@ -11,6 +11,7 @@ bs::ResourceManager::ResourceManager(IRenderTarget& context)
 	: context_(context)
 {
 	assetsToLoad_.emplace(0, "Assets/Textures/player_fly");
+	assetsToLoad_.emplace(1, "Assets/Textures/bg");
 }
 
 void bs::ResourceManager::PreloadAssets()
@@ -59,16 +60,21 @@ std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
 {
 	auto fakeScene = std::make_unique<Scene>();
 
-	auto entity = std::unique_ptr<GameEntity>(new GameEntity(0));
-	std::shared_ptr<IEntityComponent> spriteRenderer = std::make_shared<SpriteRenderer>(entity.get(), sprites_[101].get());
-	entity->AddComponent(spriteRenderer);
+	auto backgroundEntity = std::unique_ptr<GameEntity>(new GameEntity(0));
+	std::shared_ptr<IEntityComponent> bgRenderer = std::make_shared<SpriteRenderer>(backgroundEntity.get(), sprites_[110].get());
+	backgroundEntity->AddComponent(bgRenderer);
+	fakeScene->AddEntity(std::move(backgroundEntity));
+
+	auto playerEntity = std::unique_ptr<GameEntity>(new GameEntity(1));
+	std::shared_ptr<IEntityComponent> spriteRenderer = std::make_shared<SpriteRenderer>(playerEntity.get(), sprites_[101].get());
+	playerEntity->AddComponent(spriteRenderer);
 
 	const float speed = 100.f;
 	const float angularSpeed = 100.f;
-	std::shared_ptr<IEntityComponent> playerController = std::make_shared<game::PlayerController>(entity.get(), speed, angularSpeed);
-	entity->AddComponent(playerController);
+	std::shared_ptr<IEntityComponent> playerController = std::make_shared<game::PlayerController>(playerEntity.get(), speed, angularSpeed);
+	playerEntity->AddComponent(playerController);
 
-	fakeScene->AddEntity(std::move(entity));
+	fakeScene->AddEntity(std::move(playerEntity));
 
 	return fakeScene;
 }
