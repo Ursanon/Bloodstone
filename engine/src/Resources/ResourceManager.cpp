@@ -63,7 +63,7 @@ std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
 	std::shared_ptr<IEntityComponent> spriteRenderer = std::make_shared<SpriteRenderer>(entity.get(), sprites_[101].get());
 	entity->AddComponent(spriteRenderer);
 
-	auto speed = 10;
+	auto speed = 100;
 	std::shared_ptr<IEntityComponent> playerController = std::make_shared<game::PlayerController>(entity.get(), speed);
 	entity->AddComponent(playerController);
 

@@ -50,8 +50,8 @@ void bs::Engine::Run()
 
         renderStopwatch.Restart();
         Render();
-        lastRenderTime = time::Now();
         renderStopwatch.Stop();
+        lastRenderTime = time::Now();
 
         const double renderTime = renderStopwatch.GetElapsedTime<std::milli>();
 

@@ -28,6 +28,7 @@ void bs::game::PlayerController::Update(const float& deltaTime)
 bs::Vec2f bs::game::PlayerController::HandleInput() const
 {
 	Vec2f direction;
+
 	if (Keyboard::isKeyPressed(Keyboard::Key::A))
 	{
 		direction = Vec2f(-1, 0);
@@ -50,5 +51,5 @@ bs::Vec2f bs::game::PlayerController::HandleInput() const
 		//idle
 	}
 
-	return direction;
+	return direction.Normalized();
 }

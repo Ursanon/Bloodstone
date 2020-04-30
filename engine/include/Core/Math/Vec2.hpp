@@ -1,6 +1,8 @@
 #ifndef VEC2_HPP
 #define VEC2_HPP
 
+#include <cmath>
+
 namespace bs
 {
 	template <typename T>
@@ -19,6 +21,8 @@ namespace bs
 		static Vec2<T> Zero();
 
 		static Vec2<T> Lerp(const Vec2<T>& a, const Vec2<T>& b, const float& t);
+
+		Vec2<T> Normalized() const;
 
 		bool operator!= (const Vec2<T>& rhs) const;
 		bool operator== (const Vec2<T>& rhs) const;
@@ -72,6 +76,19 @@ namespace bs
 	Vec2<T> Vec2<T>::Lerp(const Vec2<T>& a, const Vec2<T>& b, const float& t)
 	{
 		return a * (1 - t) + b * t;
+	}
+
+	template<typename T>
+	inline Vec2<T> Vec2<T>::Normalized() const
+	{
+		auto length = std::sqrt((this->X * this->X) + (this->Y * this->Y));
+
+		if (length == 0)
+		{
+			return Vec2<T>::Zero();
+		}
+
+		return Vec2<T>(this->X / length, this->Y / length);
 	}
 
 	template <typename T>
