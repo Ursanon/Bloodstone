@@ -2,8 +2,9 @@
 #define ENGINE_HPP
 
 #include <memory>
+#include <SFML/Graphics.hpp>
+
 #include "EngineConfiguration.hpp"
-#include "Rendering/RenderWindow.hpp"
 #include "Resources/Scene.hpp"
 #include "Resources/ResourceManager.hpp"
 
@@ -33,7 +34,7 @@ namespace bs
 		EngineConfiguration config_;
 
 		std::unique_ptr<Scene> scene_;
-		std::unique_ptr<RenderWindow> window_;
+		std::unique_ptr<sf::RenderWindow> window_;
 		std::unique_ptr<ResourceManager> resources_;
 	};
 }

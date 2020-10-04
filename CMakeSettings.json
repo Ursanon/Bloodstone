@@ -12,28 +12,13 @@
       "ctestCommandArgs": "",
       "variables": [
         {
-          "name": "SDL2_DIR",
-          "value": "B:/Libraries/SDL2-2.0.12/dev",
+          "name": "SFML_DIR",
+          "value": "B:/Libraries/SFML-2.5.1",
           "type": "PATH"
         },
         {
-          "name": "SDL2_LIBRARY",
-          "value": "B:/Libraries/SDL2-2.0.12/dev/lib/x64/SDL2.lib",
-          "type": "STRING"
-        },
-        {
-          "name": "SDL2_INCLUDE_DIR",
-          "value": "B:/Libraries/SDL2-2.0.12/dev/include",
-          "type": "PATH"
-        },
-        {
-          "name": "SDL2MAIN_LIBRARY",
-          "value": "B:/Libraries/SDL2-2.0.12/dev/lib/x64/SDL2main.lib",
-          "type": "FILEPATH"
-        },
-        {
-          "name": "SDL2_DLL",
-          "value": "B:/Libraries/SDL2-2.0.12/dev/lib/x64/SDL2.dll",
+          "name": "SFML_BIN",
+          "value": "B:/Libraries/SFML-2.5.1/bin",
           "type": "PATH"
         }
       ]

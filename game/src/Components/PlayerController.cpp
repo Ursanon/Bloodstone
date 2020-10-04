@@ -1,7 +1,5 @@
 #include "Components/PlayerController.hpp"
-
 #include "Components/GameEntity.hpp"
-#include "Window/Keyboard.hpp"
 
 bs::game::PlayerController::PlayerController(GameEntity* entity, const float& speed, const float& angularSpeed)
 	: Component(entity)
@@ -45,11 +43,11 @@ bs::Vec2f bs::game::PlayerController::HandleMovement() const
 {
 	Vec2f direction;
 
-	if (Keyboard::isKeyPressed(Keyboard::Key::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		direction += Vec2f(0, -1);
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key::S))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		direction += Vec2f::Up();
 	}
@@ -63,11 +61,11 @@ bs::Vec2f bs::game::PlayerController::HandleMovement() const
 
 float bs::game::PlayerController::HandleRotation() const
 {
-	if (Keyboard::isKeyPressed(Keyboard::Key::A))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		return -1.f;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key::D))
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		return 1.f;
 	}

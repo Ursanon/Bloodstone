@@ -1,9 +1,10 @@
 #include "Components/SpriteRenderer.hpp"
 #include "Components/GameEntity.hpp"
 
-bs::SpriteRenderer::SpriteRenderer(GameEntity* entity, Sprite* sprite)
+bs::SpriteRenderer::SpriteRenderer(GameEntity* entity, sf::Sprite* sprite)
 	: IDrawableComponent(entity)
 	, sprite_(sprite)
+	, entity_(entity)
 {
 }
 
@@ -11,27 +12,15 @@ void bs::SpriteRenderer::Update(const float& deltaTime)
 {
 }
 
-void bs::SpriteRenderer::Draw(const IRenderTarget& target)
+void bs::SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	auto* renderer = target.GetRenderer();
-	auto* texture = sprite_->GetTexture()->GetNativeHandle();
+	auto transform = entity_->GetTransform();
+	auto pos = transform->GetPosition();
+	sprite_->setPosition(pos.X, pos.Y);
 
-	auto& spriteRect = sprite_->GetRect();
+	auto rot = transform->GetRotation();
 
-	spriteRect_.x = spriteRect.X;
-	spriteRect_.y = spriteRect.Y;
-	spriteRect_.w = spriteRect.Width;
-	spriteRect_.h = spriteRect.Height;
+	sprite_->setRotation(rot);
 
-	auto* transform = GetEntity()->GetTransform();
-	auto& position = transform->GetPosition();
-
-	positionRect_.x = position.X;
-	positionRect_.y = position.Y;
-	positionRect_.w = spriteRect.Width;
-	positionRect_.h = spriteRect.Height;
-
-	auto& rotation = transform->GetRotation();
-
-	SDL_RenderCopyEx(renderer, texture, &spriteRect_, &positionRect_, rotation, nullptr, SDL_FLIP_NONE);
+	target.draw(*sprite_, states);
 }

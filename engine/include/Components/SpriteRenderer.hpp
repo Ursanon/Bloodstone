@@ -2,7 +2,6 @@
 #define SPRITE_RENDERER_HPP
 
 #include "Components/IDrawableComponent.hpp"
-#include "Rendering/Sprite.hpp"
 
 namespace bs
 {
@@ -10,17 +9,16 @@ namespace bs
 		: public IDrawableComponent
 	{
 	public:
-		explicit SpriteRenderer(GameEntity* entity, Sprite* texture);
+		explicit SpriteRenderer(GameEntity* entity, sf::Sprite* sprite);
 
-		virtual void Update(const float& deltaTime) override;
+		void SpriteRenderer::Update(const float& deltaTime);
 
-		virtual void Draw(const IRenderTarget& target) override;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	private:
-		Sprite* sprite_;
+		sf::Sprite* sprite_;
 
-		SDL_Rect spriteRect_;
-		SDL_Rect positionRect_;
+		GameEntity * const entity_;
 	};
 }
 
