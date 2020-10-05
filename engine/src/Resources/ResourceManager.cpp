@@ -7,8 +7,7 @@
 
 #include "Gameplay/Gameplay.hpp"
 
-bs::ResourceManager::ResourceManager(IRenderTarget& context)
-	: context_(context)
+bs::ResourceManager::ResourceManager()
 {
 	assetsToLoad_.emplace(0, "Assets/Textures/player_fly");
 	assetsToLoad_.emplace(1, "Assets/Textures/bg");
@@ -25,7 +24,8 @@ void bs::ResourceManager::PreloadAssets()
 		auto bmpPath = asset.second + ".bmp";
 		auto metaPath = asset.second + ".json";
 
-		auto texture = Texture::LoadFromFile(bmpPath, context_);
+		auto texture = sf::Texture();
+		texture.loadFromFile(bmpPath);
 
 		std::ifstream stream;
 		stream.open(metaPath);
@@ -40,13 +40,15 @@ void bs::ResourceManager::PreloadAssets()
 
 		auto meta = json.get<TextureMeta>();
 
-		textures_.emplace(meta.Id, std::move(texture));
+		textures_.emplace(meta.Id, std::make_unique<sf::Texture>(texture));
 
 		auto texturePtr = textures_[meta.Id].get();
 
 		for (auto&& spriteMeta : meta.Sprites)
 		{
-			auto sprite = std::make_unique<Sprite>(texturePtr, spriteMeta.Rect);
+			auto sprite = std::make_unique<sf::Sprite>(*texturePtr, spriteMeta.Rect);
+
+			sprite->setOrigin(spriteMeta.Rect.Width / 2.f, spriteMeta.Rect.Height / 2.f);
 			sprites_.emplace(spriteMeta.Id, std::move(sprite));
 		}
 

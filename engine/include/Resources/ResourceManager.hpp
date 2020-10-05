@@ -4,8 +4,6 @@
 #include <map>
 #include <memory>
 #include <string>
-#include "SDL.h"
-#include "Rendering/Sprite.hpp"
 #include "Resources/Scene.hpp"
 
 namespace bs
@@ -13,19 +11,18 @@ namespace bs
 	class ResourceManager sealed
 	{
 	public:
-		explicit ResourceManager(IRenderTarget& context);
+		ResourceManager();
 
 		void PreloadAssets();
 
 		std::unique_ptr<Scene> LoadScene();
 
 	private:
-		IRenderTarget& context_;
 
 		// TODO: #3
 		std::map<int, std::string> assetsToLoad_;
-		std::map<int, std::unique_ptr<Sprite>> sprites_;
-		std::map<int, std::unique_ptr<Texture>> textures_;
+		std::map<int, std::unique_ptr<sf::Sprite>> sprites_;
+		std::map<int, std::unique_ptr<sf::Texture>> textures_;
 	};
 }
 

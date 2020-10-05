@@ -1,14 +1,14 @@
 #ifndef IDRAWABLE_COMPONENT_HPP
 #define IDRAWABLE_COMPONENT_HPP
 
+#include <SFML/Graphics.hpp>
 #include "Components/Component.hpp"
-#include "Rendering/IDrawable.hpp"
 
 namespace bs
 {
 	class IDrawableComponent
 		: public Component
-		, public IDrawable
+		, public sf::Drawable
 	{
 	public:
 		IDrawableComponent(GameEntity* entity)
@@ -16,7 +16,7 @@ namespace bs
 		{
 		}
 
-		virtual void Draw(const IRenderTarget& target) = 0;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 	};
 }
 

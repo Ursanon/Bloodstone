@@ -2,7 +2,6 @@
 #define SCENE_HPP
 
 #include <vector>
-#include "Rendering/IDrawable.hpp"
 #include "Components/GameEntity.hpp"
 
 namespace bs

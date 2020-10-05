@@ -3,17 +3,17 @@
 
 #include "ThirdParty/json.hpp"
 #include "EngineConfiguration.hpp"
-#include "Rendering/Sprite.hpp"
+#include "Graphics/TextureMeta.hpp"
 
 namespace bs
 {
 	template <typename T>
-	void from_json(const nlohmann::json& json, Rect<T>& rect)
+	void from_json(const nlohmann::json& json, sf::Rect<T>& rect)
 	{
-		json.at("X").get_to(rect.X);
-		json.at("Y").get_to(rect.Y);
-		json.at("Width").get_to(rect.Width);
-		json.at("Height").get_to(rect.Height);
+		json.at("X").get_to(rect.left);
+		json.at("Y").get_to(rect.top);
+		json.at("Width").get_to(rect.width);
+		json.at("Height").get_to(rect.height);
 	}
 
 	template <typename T>
@@ -21,6 +21,14 @@ namespace bs
 	{
 		json.at("X").get_to(resolution.X);
 		json.at("Y").get_to(resolution.Y);
+	}
+
+	inline void from_json(const nlohmann::json& json, bs::MyIntRect& rect)
+	{
+		json.at("X").get_to(rect.X);
+		json.at("Y").get_to(rect.Y);
+		json.at("Width").get_to(rect.Width);
+		json.at("Height").get_to(rect.Height);
 	}
 
 	inline void from_json(const nlohmann::json& json, EngineConfiguration& config)

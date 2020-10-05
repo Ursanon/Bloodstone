@@ -1,3 +1,4 @@
+
 #include "Engine.hpp"
 
 #include <chrono>
@@ -61,6 +62,8 @@ void bs::Engine::Run()
             std::this_thread::sleep_for(std::chrono::milliseconds(0));
         }
 	}
+
+    window_->close();
 }
 
 void bs::Engine::LoadConfig()
@@ -82,11 +85,12 @@ void bs::Engine::LoadConfig()
 
 void bs::Engine::InitializeWindow()
 {
-    const WindowMode mode = WindowMode::Windowed;
-    window_ = std::make_unique<RenderWindow>(config_.Name, config_.Resolution, mode);
+    auto context = sf::ContextSettings();
+    context.antialiasingLevel = 2;
 
-    auto target = static_cast<IRenderTarget*>(window_.get());
-    resources_ = std::make_unique<ResourceManager>(*target);
+    window_ = std::make_unique<sf::RenderWindow>(sf::VideoMode(config_.Resolution.X, config_.Resolution.Y), config_.Name, 7U, context);
+
+    resources_ = std::make_unique<ResourceManager>();
     resources_->PreloadAssets();
 
     scene_ = std::move(resources_->LoadScene());
@@ -96,17 +100,17 @@ void bs::Engine::InitializeWindow()
 
 void bs::Engine::ProcessEvents()
 {
-    Event event;
+    sf::Event event;
 
-    while (window_->PoolEvents(event))
+    while (window_->pollEvent(event))
     {
-        switch (event.Type)
+        switch (event.type)
         {
-        case EventType::WindowClose:
+        case sf::Event::Closed:
             quitRequested_ = true;
             break;
-        case EventType::KeyReleased:
-            quitRequested_ = event.Key.Code == Keyboard::Key::Escape;
+        case sf::Event::KeyReleased:
+            quitRequested_ = event.key.code == sf::Keyboard::Escape;
             break;
         }
     }
@@ -125,18 +129,19 @@ void bs::Engine::Update(const float& deltaMilliseconds)
 
 void bs::Engine::Render()
 {
-    auto clearColor = Color(0.15f, 0.15f, 0.8f);
-    window_->Clear(clearColor);
+    auto clearColor = sf::Color(38, 38, 204);
+
+    window_->clear(clearColor);
 
     auto& entities = scene_->GetEntities();
 	for (auto&& entity : entities)
 	{
 		auto drawables = entity->GetDrawableComponents();
-		for (auto&& drawable : drawables)
+		for (std::shared_ptr<sf::Drawable>&& drawable : drawables)
 		{
-			drawable->Draw(*window_);
+            window_->draw(*drawable);
 		}
 	}
 
-    window_->Display();
+    window_->display();
 }
