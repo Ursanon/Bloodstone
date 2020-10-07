@@ -2,28 +2,28 @@
 
 bs::Transform::Transform(GameEntity* entity)
 	: Component(entity)
-	, rotation_(0.f)
 {
 }
 
-const bs::Vec2f& bs::Transform::GetPosition()
+bs::Vec2f bs::Transform::GetPosition() const
 {
-	return position_;
+	auto pos = this->getPosition();
+	return bs::Vec2f(pos.x, pos.y);
 }
 
-const float& bs::Transform::GetRotation()
+float bs::Transform::GetRotation() const
 {
-	return rotation_;
+	return this->getRotation();
 }
 
-void bs::Transform::SetPosition(const Vec2f& position)
+void bs::Transform::SetPosition(const bs::Vec2f& position)
 {
-	position_ = position;
+	this->setPosition(sf::Vector2f(position.X, position.Y));
 }
 
 void bs::Transform::SetRotation(const float& rotation)
 {
-	rotation_ = rotation;
+	this->setRotation(rotation);
 }
 
 void bs::Transform::Update(const float& deltaTime)
