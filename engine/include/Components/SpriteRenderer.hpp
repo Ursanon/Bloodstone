@@ -17,6 +17,7 @@ namespace bs
 
 	private:
 		sf::Sprite* sprite_;
+		sf::VertexArray vertices_;
 
 		GameEntity * const entity_;
 	};
