@@ -10,7 +10,6 @@ namespace bs
 {
 	class Transform
 		: public Component
-		, sf::Transformable
 	{
 	public:
 		Transform(GameEntity* entity);
@@ -24,6 +23,10 @@ namespace bs
 		void SetRotation(const float& rotation);
 
 		virtual void Update(const float& deltaTime) override;
+
+	private:
+		float rotation_;
+		Vec2f position_;
 	};
 }
 
