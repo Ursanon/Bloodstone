@@ -123,9 +123,8 @@ namespace bs
 	template<typename T>
 	Vec2<T>& Vec2<T>::Rotate(const float& angle)
 	{
-		const float rad = angle * DEG_TO_RAD;
-		const float sin = std::sin(rad);
-		const float cos = std::cos(rad);
+		const float sin = std::sin(angle);
+		const float cos = std::cos(angle);
 
 		auto x = this->X * cos - this->Y * sin;
 		auto y = this->X * sin + this->Y * cos;

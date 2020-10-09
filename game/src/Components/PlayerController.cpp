@@ -19,7 +19,7 @@ void bs::game::PlayerController::Update(const float& deltaTime)
 
 		const float newRotation = oldRotation + rotation * angularSpeed_ * deltaTime;
 
-		transform_->SetRotation(newRotation);
+		transform_->SetRotation(newRotation); 
 	}
 
 	auto direction = HandleMovement();

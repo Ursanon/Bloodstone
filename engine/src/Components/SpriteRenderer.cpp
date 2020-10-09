@@ -1,18 +1,19 @@
 #include "Components/SpriteRenderer.hpp"
 #include "Components/GameEntity.hpp"
 
-bs::SpriteRenderer::SpriteRenderer(GameEntity* entity, sf::Sprite* sprite)
+bs::SpriteRenderer::SpriteRenderer(GameEntity* entity, Sprite* sprite)
 	: IDrawableComponent(entity)
 	, sprite_(sprite)
 	, entity_(entity)
 	, vertices_(sf::PrimitiveType::TriangleStrip, 4)
 {
-	const auto rect = sprite_->getTextureRect();
+	const auto rect = sprite_->GetRect();
 
-	const auto top = static_cast<float>(rect.top);
-	const auto left = static_cast<float>(rect.left);
-	const auto width = static_cast<float>(rect.width);
-	const auto height = static_cast<float>(rect.height);
+	const auto top = static_cast<float>(rect.X);
+	const auto left = static_cast<float>(rect.Y);
+	const auto width = static_cast<float>(rect.Width);
+	const auto height = static_cast<float>(rect.Height);
+
 	const auto right = left + width;
 	const auto bottom = top + height;
 
@@ -45,7 +46,7 @@ void bs::SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states)
 	const auto scale = transform->GetScale();
 	const auto origin = transform->GetOrigin();
 
-	const auto angle = -rotation * 3.141592654f / 180.f;
+	const auto angle = -rotation;
 	const auto cosine = static_cast<float>(std::cos(angle));
 	const auto sine = static_cast<float>(std::sin(angle));
 	const auto sxc = scale.X * cosine;
@@ -56,7 +57,7 @@ void bs::SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states)
 	const auto ty = origin.X * sxs - origin.Y * syc + position.Y;
 
 	states.transform *= sf::Transform(sxc, sys, tx, -sxs, syc, ty, 0.f, 0.f, 1.f);
-	states.texture = sprite_->getTexture();
+	states.texture = sprite_->GetTexture();
 
 	target.draw(vertices_, states);
 }

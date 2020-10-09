@@ -28,7 +28,7 @@ file(GLOB_RECURSE ALL_SRC
 
 find_package(SFML 2.5 COMPONENTS system window graphics audio REQUIRED)
 
-add_executable(Bloodstone "${ALL_SRC}" "engine/include/Graphics/TextureMeta.hpp" )
+add_executable(Bloodstone ${ALL_SRC})
 target_link_libraries(Bloodstone sfml-system sfml-window sfml-graphics sfml-audio)
 
 #Copy assets
