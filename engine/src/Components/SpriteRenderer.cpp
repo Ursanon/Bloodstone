@@ -40,23 +40,8 @@ void bs::SpriteRenderer::Update(const float& deltaTime)
 void bs::SpriteRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	const auto transform = entity_->GetTransform();
-	const auto position = transform->GetPosition();
-	const auto rotation = transform->GetRotation();
 
-	const auto scale = transform->GetScale();
-	const auto origin = transform->GetOrigin();
-
-	const auto angle = -rotation;
-	const auto cosine = static_cast<float>(std::cos(angle));
-	const auto sine = static_cast<float>(std::sin(angle));
-	const auto sxc = scale.X * cosine;
-	const auto syc = scale.Y * cosine;
-	const auto sxs = scale.X * sine;
-	const auto sys = scale.Y * sine;
-	const auto tx = -origin.X * sxc - origin.Y * sys + position.X;
-	const auto ty = origin.X * sxs - origin.Y * syc + position.Y;
-
-	states.transform *= sf::Transform(sxc, sys, tx, -sxs, syc, ty, 0.f, 0.f, 1.f);
+	states.transform *= *transform;
 	states.texture = sprite_->GetTexture();
 
 	target.draw(vertices_, states);

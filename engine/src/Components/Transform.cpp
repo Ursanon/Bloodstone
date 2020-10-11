@@ -50,3 +50,17 @@ void bs::Transform::SetRotation(const float& rotation)
 void bs::Transform::Update(const float& deltaTime)
 {
 }
+
+namespace bs {
+sf::Transform& operator *=(sf::Transform& left, const bs::Transform& right)
+{
+	const auto scale = right.GetScale();
+	const auto origin = right.GetOrigin();
+	const auto position = right.GetPosition();
+	const auto rotation = right.GetRotation();
+
+	return left.scale(scale.X, scale.Y, origin.X, origin.Y)
+			   .translate(position.X - origin.X, position.Y - origin.Y)
+			   .rotate(rotation * bs::RAD_TO_DEG, origin.X, origin.Y);
+}
+}

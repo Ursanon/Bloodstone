@@ -1,6 +1,7 @@
 #ifndef TRANSFORM_HPP
 #define TRANSFORM_HPP
 
+#include <SFML/Graphics/Transform.hpp>
 #include "Core/Math/Vec2.hpp"
 #include "Components/Component.hpp"
 
@@ -30,6 +31,8 @@ namespace bs
 
 		virtual void Update(const float& deltaTime) override;
 
+		friend sf::Transform& operator *=(sf::Transform& left, const bs::Transform& right);
+
 	private:
 		Vec2f scale_;
 		Vec2f origin_;
@@ -37,6 +40,7 @@ namespace bs
 
 		float rotation_;
 	};
+
 }
 
 #endif // !TRANSFORM_HPP
