@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include "Resources/Scene.hpp"
+#include "Graphics/Sprite.hpp"
 
 namespace bs
 {
@@ -21,7 +22,7 @@ namespace bs
 
 		// TODO: #3
 		std::map<int, std::string> assetsToLoad_;
-		std::map<int, std::unique_ptr<sf::Sprite>> sprites_;
+		std::map<int, std::unique_ptr<Sprite>> sprites_;
 		std::map<int, std::unique_ptr<sf::Texture>> textures_;
 	};
 }

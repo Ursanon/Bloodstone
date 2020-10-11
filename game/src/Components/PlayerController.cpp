@@ -15,22 +15,22 @@ void bs::game::PlayerController::Update(const float& deltaTime)
 
 	if (rotation != 0.f)
 	{
-		auto& oldRotation = transform_->GetRotation();
+		auto oldRotation = transform_->GetRotation();
 
 		const float newRotation = oldRotation + rotation * angularSpeed_ * deltaTime;
 
-		transform_->SetRotation(newRotation);
+		transform_->SetRotation(newRotation); 
 	}
 
 	auto direction = HandleMovement();
 
 	if (direction != Vec2f::Zero())
 	{
-		auto& currentRotation = transform_->GetRotation();
+		auto currentRotation = transform_->GetRotation();
 
 		direction.Rotate(currentRotation);
 
-		auto& position = transform_->GetPosition();
+		auto position = transform_->GetPosition();
 		auto newPosition = position + direction * speed_;
 
 		auto newPos = Vec2f::Lerp(position, newPosition, deltaTime);

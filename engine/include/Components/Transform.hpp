@@ -1,6 +1,7 @@
 #ifndef TRANSFORM_HPP
 #define TRANSFORM_HPP
 
+#include <SFML/Graphics/Transform.hpp>
 #include "Core/Math/Vec2.hpp"
 #include "Components/Component.hpp"
 
@@ -12,18 +13,34 @@ namespace bs
 	public:
 		Transform(GameEntity* entity);
 
-		const Vec2f& GetPosition();
-		const float& GetRotation();
+		Vec2f GetScale() const;
+
+		Vec2f GetOrigin() const;
+
+		Vec2f GetPosition() const;
+
+		float GetRotation() const;
+
+		void SetScale(const Vec2f& scale);
+
+		void SetOrigin(const Vec2f& origin);
 
 		void SetPosition(const Vec2f& position);
+
 		void SetRotation(const float& rotation);
 
 		virtual void Update(const float& deltaTime) override;
 
+		friend sf::Transform& operator *=(sf::Transform& left, const bs::Transform& right);
+
 	private:
+		Vec2f scale_;
+		Vec2f origin_;
 		Vec2f position_;
+
 		float rotation_;
 	};
+
 }
 
 #endif // !TRANSFORM_HPP

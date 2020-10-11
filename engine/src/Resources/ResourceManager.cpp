@@ -4,7 +4,6 @@
 #include <fstream>
 #include "Core/JsonUtility.hpp"
 #include "Components/SpriteRenderer.hpp"
-
 #include "Gameplay/Gameplay.hpp"
 
 bs::ResourceManager::ResourceManager()
@@ -42,13 +41,12 @@ void bs::ResourceManager::PreloadAssets()
 
 		textures_.emplace(meta.Id, std::make_unique<sf::Texture>(texture));
 
-		auto texturePtr = textures_[meta.Id].get();
+		const auto texturePtr = textures_[meta.Id].get();
 
 		for (auto&& spriteMeta : meta.Sprites)
 		{
-			auto sprite = std::make_unique<sf::Sprite>(*texturePtr, spriteMeta.Rect);
-
-			sprite->setOrigin(spriteMeta.Rect.Width / 2.f, spriteMeta.Rect.Height / 2.f);
+			auto rect = Rect<int>(spriteMeta.Rect.X, spriteMeta.Rect.Y, spriteMeta.Rect.Width, spriteMeta.Rect.Height);
+			auto sprite = std::make_unique<bs::Sprite>(texturePtr, rect);
 			sprites_.emplace(spriteMeta.Id, std::move(sprite));
 		}
 
@@ -72,7 +70,7 @@ std::unique_ptr<bs::Scene> bs::ResourceManager::LoadScene()
 	playerEntity->AddComponent(spriteRenderer);
 
 	const float speed = 100.f;
-	const float angularSpeed = 100.f;
+	const float angularSpeed = 1.f;
 	std::shared_ptr<IEntityComponent> playerController = std::make_shared<game::PlayerController>(playerEntity.get(), speed, angularSpeed);
 	playerEntity->AddComponent(playerController);
 
